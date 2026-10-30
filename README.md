@@ -1,3 +1,4 @@
+
 # 👻 GhostText
 
 ### AI Document Forensics & Hidden Instruction Detector
@@ -34,12 +35,12 @@ It combines rule-based detection, document extraction, risk scoring, and analysi
 - **Document Processing:** PyMuPDF, python-docx
 - **Authentication:** Argon2, ItsDangerous
 - **Testing:** pytest
-- **Deployment:** Docker
+- **Deployment:** Docker, Render
 
 ## 📁 Project Structure
 
 ```text
-ghosttext/
+GhostText/
 ├── app/
 │   ├── auth.py
 │   ├── main.py
@@ -56,6 +57,7 @@ ghosttext/
 ├── tests/
 ├── samples/
 ├── scripts/
+├── screenshots/
 ├── .env.example
 ├── .gitignore
 ├── Dockerfile
@@ -77,14 +79,15 @@ ghosttext/
 git clone https://github.com/Parvathy1507/GhostText.git
 cd GhostText
 ```
-Link to access the website : (https://ghosttext-yjj3.onrender.com)
 
 ### 2. Create a virtual environment
 
 **Windows PowerShell:**
 
 ```powershell
-$env:GHOSTTEXT_SESSION_SECRET = (python -c "import secrets; print(secrets.token_urlsafe(32))")
+python -m venv .venv
+.venv\Scripts\Activate.ps1
+```
 
 **Linux/macOS:**
 
@@ -101,12 +104,18 @@ python -m pip install -r requirements.txt
 
 ### 4. Configure the session secret
 
-Set a unique session secret before starting the application.
+A unique session secret is required to run GhostText.
 
 **Windows PowerShell:**
 
 ```powershell
-$env:GHOSTTEXT_SESSION_SECRET = python -c "import secrets; print(secrets.token_urlsafe(32))"
+$env:GHOSTTEXT_SESSION_SECRET = (python -c "import secrets; print(secrets.token_urlsafe(32))")
+```
+
+**Linux/macOS:**
+
+```bash
+export GHOSTTEXT_SESSION_SECRET="$(python -c 'import secrets; print(secrets.token_urlsafe(32))')"
 ```
 
 Keep this value private. For persistent deployments, configure a stable secret using your deployment platform's environment-variable settings.
@@ -168,7 +177,6 @@ python -m pytest -v
 ## 🎯 Project Goal
 
 GhostText explores document security and the detection of potentially suspicious instructions in documents. It is intended as a learning and portfolio project for cybersecurity, secure application development, and document forensics.
-
 
 ## 📸 Screenshots
 
