@@ -1,0 +1,317 @@
+
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+
+    <meta
+        name="description"
+        content="GhostText scans documents for suspicious Unicode and AI-directed instruction indicators."
+    >
+
+    <meta name="theme-color" content="#080d19">
+
+    <title>GhostText | Document Forensics</title>
+
+    <link rel="stylesheet" href="/static/css/style.css">
+</head>
+
+<body>
+    <!-- ================================
+         HEADER
+    ================================= -->
+    <header>
+        <div class="header-content">
+            <h1>👻 GhostText</h1>
+            <p>What you see isn't always what the AI reads.</p>
+            <span class="badge">DOCUMENT FORENSICS • PROTOTYPE</span>
+        </div>
+    </header>
+
+    <main>
+
+        <!-- ================================
+             AUTHENTICATION
+        ================================= -->
+        <section class="upload-card" id="authSection">
+
+            <div class="auth-heading">
+                <span class="auth-icon" aria-hidden="true">🔐</span>
+
+                <h2>Welcome to GhostText</h2>
+
+                <p>
+                    Log in to analyze documents and access your private history.
+                </p>
+            </div>
+
+            <!-- Authentication tabs -->
+            <div class="auth-tabs" role="group" aria-label="Authentication options">
+
+                <button
+                    type="button"
+                    id="showLoginButton"
+                    class="auth-tab active"
+                    aria-controls="loginForm"
+                    aria-pressed="true"
+                >
+                    Login
+                </button>
+
+                <button
+                    type="button"
+                    id="showRegisterButton"
+                    class="auth-tab"
+                    aria-controls="registerForm"
+                    aria-pressed="false"
+                >
+                    Create Account
+                </button>
+
+            </div>
+
+            <!-- LOGIN FORM -->
+            <form id="loginForm" novalidate>
+
+                <div class="form-group">
+                    <label for="loginUsername">Username</label>
+
+                    <input
+                        type="text"
+                        id="loginUsername"
+                        minlength="3"
+                        maxlength="30"
+                        autocomplete="username"
+                        placeholder="Enter your username"
+                        required
+                    >
+                </div>
+
+                <div class="form-group">
+                    <label for="loginPassword">Password</label>
+
+                    <input
+                        type="password"
+                        id="loginPassword"
+                        maxlength="128"
+                        autocomplete="current-password"
+                        placeholder="Enter your password"
+                        required
+                    >
+                </div>
+
+                <button type="submit" class="auth-submit">
+                    Login to GhostText
+                </button>
+
+            </form>
+
+            <!-- REGISTRATION FORM
+                 IMPORTANT: All registration fields must remain
+                 inside this form so the hidden attribute works.
+            -->
+            <form id="registerForm" hidden novalidate>
+
+                <div class="form-group">
+                    <label for="registerUsername">Choose a username</label>
+
+                    <input
+                        type="text"
+                        id="registerUsername"
+                        minlength="3"
+                        maxlength="30"
+                        pattern="[A-Za-z0-9_]{3,30}"
+                        autocomplete="username"
+                        placeholder="Choose a username"
+                        required
+                    >
+                </div>
+
+                <div class="form-group">
+                    <label for="registerPassword">Create a password</label>
+
+                    <input
+                        type="password"
+                        id="registerPassword"
+                        minlength="12"
+                        maxlength="128"
+                        autocomplete="new-password"
+                        placeholder="At least 12 characters"
+                        required
+                    >
+
+                    <small>
+                        Use at least 12 characters for your password.
+                    </small>
+                </div>
+
+                <button type="submit" class="auth-submit">
+                    Create Your Account
+                </button>
+
+            </form>
+
+            <!-- Authentication feedback -->
+            <p
+                id="authStatus"
+                role="status"
+                aria-live="polite"
+            ></p>
+
+        </section>
+
+
+        <!-- ================================
+             LOGGED-IN USER
+        ================================= -->
+        <section class="upload-card" id="userSection" hidden>
+
+            <div id="userSectionContent">
+                <p>
+                    Logged in as:
+                    <strong id="currentUsername"></strong>
+                </p>
+
+                <button type="button" id="logoutButton">
+                    Logout
+                </button>
+            </div>
+
+            <p
+                id="userStatus"
+                role="status"
+                aria-live="polite"
+            ></p>
+
+        </section>
+
+
+        <!-- ================================
+             DOCUMENT ANALYSIS
+        ================================= -->
+        <section class="upload-card" id="analysisSection" hidden>
+
+            <h2>Document Analysis</h2>
+
+            <p>
+                Upload a PDF or DOCX document to inspect extracted text
+                for suspicious Unicode characters and potentially
+                AI-directed instructions.
+            </p>
+
+            <form id="uploadForm">
+
+                <label for="fileInput">Choose a document</label>
+
+                <input
+                    type="file"
+                    id="fileInput"
+                    accept=".pdf,.docx"
+                    aria-label="Choose a PDF or DOCX document"
+                    required
+                >
+
+                <button type="submit" id="analyzeButton">
+                    Analyze Document
+                </button>
+
+            </form>
+
+            <p
+                id="status"
+                role="status"
+                aria-live="polite"
+            ></p>
+
+        </section>
+
+
+        <!-- ================================
+             ANALYSIS RESULTS
+        ================================= -->
+        <section id="results" class="results-card" hidden>
+
+            <h2>Analysis Report</h2>
+
+            <button
+                type="button"
+                id="exportButton"
+                disabled
+            >
+                📥 Export Analysis Report
+            </button>
+
+            <div class="stats-grid">
+
+                <article class="stat-card">
+                    <p>Risk Level</p>
+                    <h3 id="riskStat">—</h3>
+                </article>
+
+                <article class="stat-card">
+                    <p>Indicators Found</p>
+                    <h3 id="findingsStat">0</h3>
+                </article>
+
+                <article class="stat-card">
+                    <p>Characters Analyzed</p>
+                    <h3 id="charactersStat">0</h3>
+                </article>
+
+            </div>
+
+            <div id="summary"></div>
+
+            <h2>Detected Indicators</h2>
+
+            <div id="findings"></div>
+
+        </section>
+
+
+        <!-- ================================
+             PRIVATE ANALYSIS HISTORY
+        ================================= -->
+        <section
+            class="results-card"
+            id="historySection"
+            hidden
+        >
+
+            <h2>📋 My Analysis History</h2>
+
+            <p>Your previous document analyses.</p>
+
+            <button
+                type="button"
+                id="clearHistoryButton"
+            >
+                Clear My History
+            </button>
+
+            <div id="historyList"></div>
+
+        </section>
+
+    </main>
+
+
+    <!-- ================================
+         FOOTER
+    ================================= -->
+    <footer>
+        <p>GhostText • AI Document Forensics</p>
+
+        <p>
+            Findings are heuristic indicators, not proof of malicious intent.
+            Only extracted text is analyzed by the current prototype.
+        </p>
+    </footer>
+
+
+    <!-- Application JavaScript -->
+    <script src="/static/js/app.js"></script>
+
+</body>
+</html>
