@@ -6,6 +6,8 @@ GhostText is a cybersecurity project designed to analyze PDF and DOCX documents 
 
 It combines rule-based detection, document extraction, risk scoring, and analysis history in a web-based dashboard.
 
+🌐 **Live Demo:** https://ghosttext-yjj3.onrender.com
+
 > **Disclaimer:** GhostText is a heuristic analysis tool. Its findings are indicators for further investigation, not proof of malicious activity. A clean result does not guarantee that a document is safe.
 
 ---
@@ -72,8 +74,8 @@ ghosttext/
 ### 1. Clone the repository
 
 ```bash
-git clone YOUR_GITHUB_REPOSITORY_URL
-cd ghosttext
+git clone https://github.com/Parvathy1507/GhostText.git
+cd GhostText
 ```
 
 Replace `YOUR_GITHUB_REPOSITORY_URL` with your repository's actual URL after publishing it.
@@ -170,9 +172,6 @@ python -m pytest -v
 
 GhostText explores document security and the detection of potentially suspicious instructions in documents. It is intended as a learning and portfolio project for cybersecurity, secure application development, and document forensics.
 
-## 📜 License
-
-Choose and add a license before permitting others to reuse or distribute this project.
 
 ## 📸 Screenshots
 
