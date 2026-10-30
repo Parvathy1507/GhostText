@@ -77,17 +77,14 @@ ghosttext/
 git clone https://github.com/Parvathy1507/GhostText.git
 cd GhostText
 ```
-
-Replace `YOUR_GITHUB_REPOSITORY_URL` with your repository's actual URL after publishing it.
+Link to access the website : (https://ghosttext-yjj3.onrender.com)
 
 ### 2. Create a virtual environment
 
 **Windows PowerShell:**
 
 ```powershell
-python -m venv .venv
-.\.venv\Scripts\Activate.ps1
-```
+$env:GHOSTTEXT_SESSION_SECRET = (python -c "import secrets; print(secrets.token_urlsafe(32))")
 
 **Linux/macOS:**
 
