@@ -173,3 +173,17 @@ GhostText explores document security and the detection of potentially suspicious
 ## 📜 License
 
 Choose and add a license before permitting others to reuse or distribute this project.
+
+## 📸 Screenshots
+
+### Document Analysis Report
+
+View the risk score, document details, and analysis summary.
+
+![GhostText Analysis Report](screenshots/analysis-report.png)
+
+### Detected Suspicious Instructions
+
+GhostText highlights suspicious instructions and provides explanations and recommendations.
+
+![GhostText Detected Findings](screenshots/detected-findings.png)
